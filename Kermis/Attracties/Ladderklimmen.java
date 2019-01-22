@@ -2,7 +2,7 @@ package Kermis.Attracties;
 
 import Kermis.*;
 
-public class Ladderklimmen extends Attractie {
+public class Ladderklimmen extends Attractie implements GokAttractie {
 	
 	public Ladderklimmen(String naam, double prijs, double omzet, int verkochteKaartjes) {
 		super(naam, prijs, omzet, verkochteKaartjes);

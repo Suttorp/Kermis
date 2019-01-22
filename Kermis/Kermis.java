@@ -1,3 +1,16 @@
+//Stap 3:
+//Spin en Hawaii zijn zgn RisicoRijkeAttracties.
+//RisicoRijkeAttracties moeten een keuring ondergaan nadat ze opgesteld zijn. Deze methode heet dus opstellingsKeuring(). 
+//RisicoRijkeAttracties hebben een draaiLimiet. Dit is het aantal maal dat ze mogen draaien voordat er een onderhoudsbeurt moet plaatsvinden. 
+// Voor de Spin is dit 5 en voor de Hawaii is dit 10. In deze stap mag de onderhoudsbeurt nog handmatig worden aangeroepen.
+//
+//LadderKlimmen is een GokAttractie.
+//GokAttracties moeten kansSpelBelastingBetalen(). De kansSpelBelasting is het reserveren van 30% over je omzet.
+//
+//Implementeer de RisicoRijkeAttracties met behulp van Abstracte Klassen.
+//Implementeer de GokAttractie via een interface.
+
+
 package Kermis; 
 
 import java.util.*;
@@ -37,20 +50,17 @@ public class Kermis {
 	//hasNextInt() even uitzoeken
 	private void draaien() {
 		Scanner scan = new Scanner(System.in);
-		
 		Kassa kas = new Kassa();
 		boolean b = scan.hasNextInt();
-		if (b == true) {
+		if (b == true ) {
 			int keuzeAttractie = scan.nextInt();
+			
 		try {
 			
 			keuzeAttractie--;
 			System.out.println("U heeft gekozen voor " + att.get(keuzeAttractie).getNaam());
 			att.get(keuzeAttractie).voegOmzetToe();
 			att.get(keuzeAttractie).setVerkochteKaartjes();
-			System.out.println("De totaalomzet van " + att.get(keuzeAttractie).getNaam() 
-					+ " is " + att.get(keuzeAttractie).getOmzet() + "\nHet aantal verkochte kaartjes is " + att.get(keuzeAttractie).getVerkochteKaartjes());
-			
 		}
 		catch (Exception e) {
 			System.out.println("Deze keuze is invalid.");
@@ -65,11 +75,41 @@ public class Kermis {
 			} else if (keuzeMenu.equals("K")) {
 				int verkochteKaartjes = kas.totaalAantalVerkochteKaartjes(att);
 				System.out.println("Het totaal aantal verkochte kaartjes: " + verkochteKaartjes);
-			} else {
+				
+			} else if (keuzeMenu.equals("R")) {
+				this.keuzeMenuR();
+				}
+			  else if (keuzeMenu.equals("B")){
+				  System.out.println("De belastingman komt langs. U moet de volgende belasting betalen");
+				  for (int x = 0; x < att.size(); x++) {
+					  if (att.get(x) instanceof GokAttractie) {
+						  double omzet = ((GokAttractie) att.get(x)).kansSpelBelastingBetalen(att);
+						  System.out.println("U moet " + omzet + " Euro afdragen aan de belastingDienst voor de GokAttracties");
+					  }
+ 				  }
+				  
+				
+			}
+			 else {
 				System.out.println("Invalid input");
 			}
 		}
 		
+			
+	}
+	
+	private void keuzeMenuR() {
+		System.out.println("U zit nu in het reparatiemenu. De volgende reparaties moeten worden uitgevoerd: ");
+		for (int x = 0; x < att.size(); x++) {
+			if (att.get(x) instanceof RisicoRijkeAttracties) {
+				RisicoRijkeAttracties y = ((RisicoRijkeAttracties)att.get(x));
+				if (y.isOnderhoudsBeurtNodig() == true) {
+					System.out.println("Zo te zien is er een onderhoudsbeurt nodig voor: " + y.getNaam());
+					y.onderhoudsBeurtIsGeweest();
+				}
+				
+			}
+		}
 			
 	}
 	
