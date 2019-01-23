@@ -1,15 +1,10 @@
 package Kermis;
 
-import java.util.ArrayList;
 
 public interface GokAttractie {
 		
-	default double kansSpelBelastingBetalen(ArrayList<Attractie> aa) {
-		for (Attractie attractie : aa) {
-			if (attractie instanceof GokAttractie) {
-				return attractie.getOmzet() * 0.3;
-			}
-		} return 0;	
+	default double kansSpelBelastingBetalen(Attractie aa) {
+		return aa.getOmzet() * 0.3;
 		
 	}
 }

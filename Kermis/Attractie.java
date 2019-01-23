@@ -1,5 +1,7 @@
 package Kermis;
 
+import java.util.ArrayList;
+
 abstract public class Attractie {
 	
 	protected String naam;
